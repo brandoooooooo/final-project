@@ -1,6 +1,6 @@
 18
 Pe2-e4 Pe7-e5
-Nb2-c3 Ng8-f6
+Nb1-c3 Ng8-f6
 Pf2-f4 Pd7-d5
 Pf4xe5 Nf6xe4
 Pd2-d3 Ne4xc3

@@ -1,13 +1,34 @@
-12
-White_Bishop.png
-White_King.png
-White_Knight.png
-White_Pawn.png
-White_Queen.png
-White_Rook.png
-Black_Bishop.png
-Black_King.png
-Black_Knight.png
-Black_Pawn.png
-Black_Queen.png
-Black_Rook.png
+32
+a1 White_Rook.png
+b1 White_Knight.png
+c1 White_Bishop.png
+d1 White_Queen.png
+e1 White_King.png
+f1 White_Bishop.png
+g1 White_Knight.png
+h1 White_Rook.png
+a2 White_Pawn.png
+b2 White_Pawn.png
+c2 White_Pawn.png
+d2 White_Pawn.png
+e2 White_Pawn.png
+f2 White_Pawn.png
+g2 White_Pawn.png
+h2 White_Pawn.png
+a8 Black_Rook.png
+b8 Black_Knight.png
+c8 Black_Bishop.png
+d8 Black_Queen.png
+e8 Black_King.png
+f8 Black_Bishop.png
+g8 Black_Knight.png
+h8 Black_Rook.png
+a7 Black_Pawn.png
+b7 Black_Pawn.png
+c7 Black_Pawn.png
+d7 Black_Pawn.png
+e7 Black_Pawn.png
+f7 Black_Pawn.png
+g7 Black_Pawn.png
+h7 Black_Pawn.png
+
