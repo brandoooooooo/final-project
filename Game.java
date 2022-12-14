@@ -1,11 +1,13 @@
+import java.util.Arrays;
+
 public class Game {
 
     private static Piece[] readPieces(String file) {
-        java.util.Scanner files = new java.util.Scanner(file);
-        Piece[] pieces = new Piece[files.nextInt()];
+        In files = new In(file);
+        Piece[] pieces = new Piece[files.readInt()];
 
-        for (int i = 0; !files.hasNext(); i++) {
-            Piece piece = new Piece(files.next());
+        for (int i = 0; !files.isEmpty(); i++) {
+            Piece piece = new Piece(files.readString());
             pieces[i] = piece;
         }
 
@@ -16,37 +18,35 @@ public class Game {
         int ROWS = 8;
 
         String piecesFile = args[0];
+        String game = args[1];
 
         Piece[] pieces = readPieces(piecesFile);
 
-        Board board = new Board(ROWS, pieces);
+        // Board board = new Board(ROWS, pieces);
 
-        String game = args[0];
-        java.util.Scanner in = new java.util.Scanner(game);
-        boolean side = true; // boolean for which side moves - true is white, false is black
-        int numMoves = in.nextInt();
-        String[][] moves = new String[2][numMoves];
+        In in = new In(game);
 
-        StdOut.println(moves.length);
-        StdOut.println(moves[1].length);
+        int numMoves = in.readInt();
+        String[][] moves = new String[numMoves][2];
 
+        in.readLine();
 
-        while (!in.hasNext()) {
-            for (int i = 0; i < moves[0].length; i++) {
-                for (int j = 0; j < moves.length; j++) {
-                    
-                    String move = in.next();
-                    StdOut.println(move);
-                    moves[j][i] = move;
+        for (int i = 0; i < moves.length; i++) {
+            if (!in.isEmpty()) {
+                String line = in.readLine();
+                if (line != null) {
+                    String[] moveArray = line.split(" ");
+                    StdOut.println(Arrays.toString(moveArray));
+
+                    moves[i] = moveArray;
                 }
             }
         }
 
-        // System.out.println(Arrays.deepToString(moves));
-        while (!StdIn.isEmpty()) {
+        for (int i = 0; i < 1; i++) {
 
 
-            String move = in.next();
+            String move = in.readString();
 
             char[] letters = move.toCharArray();
 
@@ -58,18 +58,12 @@ public class Game {
 
             // king-side castle
             if (move.contains("O-O")) {
-                if (side) {
 
-                } else {
-
-                }
             }
             // queen-side castle
             else if (move.contains("O-O-O")) {
 
             }
-
-            side = !side;
         }
     }
 

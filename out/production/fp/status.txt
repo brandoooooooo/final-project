@@ -1,0 +1,72 @@
+COS126 Final Project: Status Update
+
+*Please complete the following questions and upload this file to TigerFile.*
+
+Do not alter the format of the questions, replace the ** Write here ** with your answers.
+
+  Basic Information
+
+Name 1: Brandon Lee
+NetID 1: bl0428
+
+Name 2 (include if pair project):
+NetID 2 (include if pair project):
+
+Project advisor: ** Write here **
+Project title: ** Write here **
+
+
+  Required Questions
+
+A. Summarize your proposed three features (your features might have
+changed slightly after the proposal, so this is so your advisor knows
+the current status of your plans):
+
+I changed my plan for the project from a playable game of chess to just a program that plays out a past game of chess
+using a text file as input. I felt like implementing all the rules of chess will take too long, especially things such
+as checking if a move is legal or not, as well as obscure rules such as en passant or pins, which would require
+a lot of if statements and implementing some kind of system to check every square that a piece is able to move to.
+
+Feature 1.
+Piece: Data type that stores a piece's x-y position and image, which contains methods to place the piece, move, and
+others
+
+Feature 2.
+ChessBoard: Data type that stores an array of pieces, and actually creates the chess board and other thing such as
+placing a square to hide a piece when moving or returning the piece at a certain position on the board
+
+Feature 3.
+Game: Reads in the moves from a text file and does the moves. Includes static methods to read in the pieces from a text
+file as well as the moves, so in theory you could play out another board game such as checkers if you changed the
+images and used the same move format for the input.
+
+B. Summarize what you have implemented for each feature:
+
+Feature 1.
+Piece: I think I am done implementing this, as it was quite simple. All I needed to do for moving was to update the
+x and y instance variables for a move.
+
+Feature 2.
+ChessBoard: I have also implemented this
+
+Feature 3.
+Game: I have implemented the method that reads in the pieces file, but not the moves file yet, and I also have not
+implemented the main method that actually plays out the game yet.
+
+Other Code (optional, in case you have extra code).
+** Write here **
+
+
+C. Estimate what you have left to implement for each feature:
+
+Feature 1.
+** Write here **
+
+Feature 2.
+** Write here **
+
+Feature 3.
+Game: I still have to implement reading in the moves and moving the pieces, as well as something that shows
+     the captured pieces and relative material advantage.
+
+Other Code (optional, in case you have extra code)
