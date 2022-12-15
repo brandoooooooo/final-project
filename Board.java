@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Board {
     private final Piece[] pieces;
 
@@ -5,27 +7,29 @@ public class Board {
         this.pieces = pieces;
     }
 
-    public static void initBoard(int x) {
-        StdDraw.setScale(0, x);
+    public static void initBoard(int rows) {
+        StdDraw.setCanvasSize(768, 512);
+        StdDraw.setScale(0, 8);
+        StdDraw.setXscale(0, 12);
 
-        for (int i = 0; i < x; i++) {
-            for (int j = 0; j < x; j++) {
-                if (i % 2 == 0) {
-                    if (j % 2 == 0) {
-                        StdDraw.setPenColor(118, 150, 86);
-                        StdDraw.filledSquare(i + 0.5, j + 0.5, 0.5);
-                    } else {
-                        StdDraw.setPenColor(238, 238, 210);
-                        StdDraw.filledSquare(i + 0.5, j + 0.5, 0.5);
-                    }
+        Color LIGHT = new Color(238, 238, 210);
+        Color DARK = new Color(118, 150, 86);
+
+        StdDraw.setPenColor(StdDraw.BLACK);
+        StdDraw.setPenRadius(0.015);
+        StdDraw.line(8, 0, 8, 8);
+
+        for (int x = 0; x < rows; x++) {
+            for (int y = 0; y < rows; y++) {
+                if (x % 2 == 0 && y % 2 == 0) {
+                    StdDraw.setPenColor(DARK);
+                    StdDraw.filledSquare(x + 0.5, y + 0.5, 0.5);
+                } else if (x % 2 != 0 && y % 2 != 0) {
+                    StdDraw.setPenColor(DARK);
+                    StdDraw.filledSquare(x + 0.5, y + 0.5, 0.5);
                 } else {
-                    if (j % 2 == 0) {
-                        StdDraw.setPenColor(238, 238, 210);
-                        StdDraw.filledSquare(i + 0.5, j + 0.5, 0.5);
-                    } else {
-                        StdDraw.setPenColor(118, 150, 86);
-                        StdDraw.filledSquare(i + 0.5, j + 0.5, 0.5);
-                    }
+                    StdDraw.setPenColor(LIGHT);
+                    StdDraw.filledSquare(x + 0.5, y + 0.5, 0.5);
                 }
             }
         }
@@ -33,14 +37,17 @@ public class Board {
 
     // places a square at (x, y)
     public static void square(int x, int y) {
+        Color LIGHT = new Color(238, 238, 210);
+        Color DARK = new Color(118, 150, 86);
+
         if (x % 2 == 0 && y % 2 == 0) {
-            StdDraw.setPenColor(118, 150, 86);
+            StdDraw.setPenColor(DARK);
             StdDraw.filledSquare(x - 0.5, y - 0.5, 0.5);
         } else if (x % 2 != 0 && y % 2 != 0) {
-            StdDraw.setPenColor(118, 150, 86);
+            StdDraw.setPenColor(DARK);
             StdDraw.filledSquare(x - 0.5, y - 0.5, 0.5);
         } else {
-            StdDraw.setPenColor(238, 238, 210);
+            StdDraw.setPenColor(LIGHT);
             StdDraw.filledSquare(x - 0.5, y - 0.5, 0.5);
         }
     }
