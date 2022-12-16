@@ -1,0 +1,17 @@
+16
+Pa2-a4 Pa7-a5
+b4 b5
+c4 c5
+d4 d5
+e4 e5
+f4 f5
+g4 g5
+h4 h5
+Ra3 Ra6
+Nc3 Nc6
+Be3 Be6
+Qd3 Qd6
+Kd1 Kd8
+Be2 Be7
+Nf3 Nf6
+Re1 Re8

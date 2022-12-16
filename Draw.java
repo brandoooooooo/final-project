@@ -8,7 +8,7 @@
  *  allows you to create drawings consisting of points, lines, and curves
  *  in a window on your computer and to save the drawings to a file.
  *  This is the object-oriented version of standard draw; it supports
- *  multiple independent drawing windows.
+ *  multiple indepedent drawing windows.
  *
  *  Todo
  *  ----
@@ -44,9 +44,6 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
@@ -81,7 +78,7 @@ import javax.swing.KeyStroke;
  *  allows you to create drawings consisting of points, lines, and curves
  *  in a window on your computer and to save the drawings to a file.
  *  This is the object-oriented version of standard draw; it supports
- *  multiple independent drawing windows.
+ *  multiple indepedent drawing windows.
  *  <p>
  *  For additional documentation, see
  *  <a href="https://introcs.cs.princeton.edu/31datatype">Section 3.1</a> of
@@ -201,11 +198,11 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
     // default font
     private static final Font DEFAULT_FONT = new Font("SansSerif", Font.PLAIN, 16);
 
-    // default title of drawing window
-    private static final String DEFAULT_TITLE = "Standard Draw";
-
     // current pen color
     private Color penColor;
+
+    // default title of drawing window
+    private static final String DEFAULT_TITLE = "Standard Draw";
 
     // current title of drawing window
     private String title = DEFAULT_TITLE;
@@ -251,8 +248,6 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
     // event-based listeners
     private final ArrayList<DrawListener> listeners = new ArrayList<DrawListener>();
 
-    // timer
-    private Timer timer;
 
     /**
      * Initializes an empty drawing object.
@@ -305,15 +300,6 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         frame.setVisible(true);
     }
 
-    /**
-     * Makes the drawing window visible or invisible.
-     *
-     * @param  isVisible if {@code true}, makes the drawing winow visible,
-     *         otherwise hides the drawing window.
-     */
-    public void setVisible(boolean isVisible) {
-        frame.setVisible(isVisible);
-    }
 
     /**
      * Sets the upper-left hand corner of the drawing window to be (x, y), where (0, 0) is upper left.
@@ -342,7 +328,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      * Sets the canvas (drawing area) to be <em>width</em>-by-<em>height</em> pixels.
      * This also erases the current drawing and resets the coordinate system, pen radius,
      * pen color, and font back to their default values.
-     * Ordinarily, this method is called once, at the very beginning of a program.
+     * Ordinarly, this method is called once, at the very beginning of a program.
      *
      * @param  canvasWidth the width as a number of pixels
      * @param  canvasHeight the height as a number of pixels
@@ -415,21 +401,21 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
     ***************************************************************************/
 
     /**
-     * Sets the x-scale to the default range (between 0.0 and 1.0).
+     * Sets the x-scale to be the default (between 0.0 and 1.0).
      */
     public void setXscale() {
         setXscale(DEFAULT_XMIN, DEFAULT_XMAX);
     }
 
     /**
-     * Sets the y-scale to the default range (between 0.0 and 1.0).
+     * Sets the y-scale to be the default (between 0.0 and 1.0).
      */
     public void setYscale() {
         setYscale(DEFAULT_YMIN, DEFAULT_YMAX);
     }
 
     /**
-     * Sets the x-scale to the specified range.
+     * Sets the x-scale.
      *
      * @param min the minimum value of the x-scale
      * @param max the maximum value of the x-scale
@@ -446,7 +432,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
     }
 
     /**
-     * Sets the y-scale to the specified range.
+     * Sets the y-scale.
      *
      * @param min the minimum value of the y-scale
      * @param max the maximum value of the y-scale
@@ -461,27 +447,6 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         ymin = min - BORDER * size;
         ymax = max + BORDER * size;
     }
-
-    /**
-     * Sets both the x-scale and y-scale to the default range (between 0.0 and 1.0).
-     */
-    public void setScale() {
-        setXscale();
-        setYscale();
-    }
-
-    /**
-     * Sets both the x-scale and y-scale to the (same) specified range.
-     * @param min the minimum value of the y-scale
-     * @param max the maximum value of the y-scale
-     * @throws IllegalArgumentException if {@code (max == min)}
-     * @throws IllegalArgumentException if either {@code min} or {@code max} is either NaN or infinite
-     */
-    public void setScale(double min, double max) {
-        setXscale(min, max);
-        setYscale(min, max);
-    }
-
 
     // helper functions that scale from user coordinates to screen coordinates and back
     private double  scaleX(double x) { return width  * (x - xmin) / (xmax - xmin); }
@@ -1021,7 +986,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         ImageIcon icon = new ImageIcon(filename);
 
         // try to read from URL
-        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
+        if ((icon == null) || (icon.getImageLoadStatus() != MediaTracker.COMPLETE)) {
             try {
                 URL url = new URL(filename);
                 icon = new ImageIcon(url);
@@ -1032,14 +997,14 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
         }
 
         // in case file is inside a .jar (classpath relative to StdDraw)
-        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
+        if ((icon == null) || (icon.getImageLoadStatus() != MediaTracker.COMPLETE)) {
             URL url = StdDraw.class.getResource(filename);
             if (url != null)
                 icon = new ImageIcon(url);
         }
 
         // in case file is inside a .jar (classpath relative to root of jar)
-        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
+        if ((icon == null) || (icon.getImageLoadStatus() != MediaTracker.COMPLETE)) {
             URL url = Draw.class.getResource("/" + filename);
             if (url == null) throw new IllegalArgumentException("image " + filename + " not found");
             icon = new ImageIcon(url);
@@ -1411,7 +1376,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
      * @param listener the {\tt DrawListener} argument
      */
     public void addListener(DrawListener listener) {
-        // ensure there is a window for listening to events
+        // ensure there is a window for listenting to events
         show();
         listeners.add(listener);
     }
@@ -1643,32 +1608,6 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
             listener.keyReleased(e.getKeyCode());
     }
 
-   /***************************************************************************
-    *  Timer events.
-    ***************************************************************************/
-
-   /**
-     * Sets a timer that calls update() method a specified number of times
-     * per second.
-     * <p>
-     * @param  callsPerSecond calls per second
-     */
-    public void enableTimer(int callsPerSecond) {
-        disableTimer();
-        timer = new Timer();
-        timer.schedule(new MyTimerTask(), 0, (int) Math.round(1000.0 / callsPerSecond));
-    }
-
-    public void disableTimer() {
-        if (timer != null) timer.cancel();
-    }
-
-    private class MyTimerTask extends TimerTask {
-        public void run() {
-            for (DrawListener listener : listeners)
-                listener.update();
-        }
-    }
 
    /***************************************************************************
     *  For improved resolution on Mac Retina displays.
@@ -1695,9 +1634,9 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 
         public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
             Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2.setRenderingHint(RenderingHints.KEY_RENDERING,     RenderingHints.VALUE_RENDER_QUALITY);
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,  RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2.setRenderingHint(RenderingHints.KEY_RENDERING,RenderingHints.VALUE_RENDER_QUALITY);
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
             g2.scale(0.5, 0.5);
             super.paintIcon(c, g2, x * 2, y * 2);
             g2.dispose();

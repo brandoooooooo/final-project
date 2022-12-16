@@ -56,11 +56,6 @@ public interface DrawListener {
 
     /**
      * Invoked when the mouse has been clicked (pressed and released).
-     * A mouse click is triggered only if the user presses a mouse button
-     * and then releases it quickly, without moving the mouse.
-     * It does not work with touch events.
-     * The {@link mousePressed} method is generally preferred for
-     * detecting mouse clicks.
      *
      * @param x the x-coordinate of the mouse
      * @param y the y-coordinate of the mouse
@@ -95,12 +90,4 @@ public interface DrawListener {
     default void keyReleased(int keycode) {
         // does nothing by default
     }
-
-    /**
-     * Gets called at regular time intervals.
-     */
-    default void update() {
-        // does nothing by default
-    }
-
 }

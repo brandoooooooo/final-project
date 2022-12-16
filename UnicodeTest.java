@@ -3,7 +3,7 @@
  *  Execution:    java-introcs  UnicodeTest
  *  Dependencies: StdOut.java
  *
- *  This programs prints out all Unicode characters in the basic
+ *  This programs prints out all of the Unicode characters in the basic
  *  multilingual plane (U+0000 to U+FFFF) in a table. It skips the
  *  following types of characters:
  *    -  undefined

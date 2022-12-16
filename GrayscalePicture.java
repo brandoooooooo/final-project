@@ -1,6 +1,6 @@
 /******************************************************************************
  *  Compilation:  javac GrayscalePicture.java
- *  Execution:    java GrayscalePicture filename
+ *  Execution:    java GrayscalePicture imagename
  *  Dependencies: none
  *
  *  Data type for manipulating individual pixels of a grayscale image. The
@@ -159,7 +159,7 @@ public final class GrayscalePicture implements ActionListener {
             width  = image.getWidth(null);
             height = image.getHeight(null);
 
-            // convert to grayscale in-place
+            // convert to grayscale inplace
             for (int col = 0; col < width; col++) {
                 for (int row = 0; row < height; row++) {
                     Color color = new Color(image.getRGB(col, row));
@@ -396,7 +396,7 @@ public final class GrayscalePicture implements ActionListener {
         sb.append(width +"-by-" + height + " grayscale picture (grayscale values given in hex)\n");
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
-                int gray;
+                int gray = 0;
                 if (isOriginUpperLeft) gray = 0xFF & image.getRGB(col, row);
                 else                   gray = 0xFF & image.getRGB(col, height - row - 1);
                 sb.append(String.format("%3d ", gray));

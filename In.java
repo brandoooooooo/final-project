@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
  *  <p>
  *  Like {@link Scanner}, reading a token also consumes preceding Java
  *  whitespace, reading a full line consumes
- *  the following end-of-line delimiter, while reading a character consumes
+ *  the following end-of-line delimeter, while reading a character consumes
  *  nothing extra.
  *  <p>
  *  Whitespace is defined in {@link Character#isWhitespace(char)}. Newlines
@@ -225,7 +225,7 @@ public final class In {
    /**
      * Returns true if input stream is empty (except possibly whitespace).
      * Use this to know whether the next call to {@link #readString()},
-     * {@link #readDouble()}, etc. will succeed.
+     * {@link #readDouble()}, etc will succeed.
      *
      * @return {@code true} if this input stream is empty (except possibly whitespace);
      *         {@code false} otherwise
@@ -527,7 +527,7 @@ public final class In {
         while (hasNextLine()) {
             lines.add(readLine());
         }
-        return lines.toArray(new String[0]);
+        return lines.toArray(new String[lines.size()]);
     }
 
 

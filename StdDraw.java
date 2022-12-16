@@ -212,7 +212,7 @@ import javax.swing.KeyStroke;
  *  is a convenient way to find a desired color.
  *  <p>
  *  The second method allows you to specify colors using the
- *  {@link Color} data type, which is defined in Java's {@link java.awt} package.
+ *  {@link Color} data type, which is defined in Java's {@link java.awt} pacakge.
  *  A number of colors are predefined in standard drawing:
  *  {@link #BLACK}, {@link #BLUE}, {@link #CYAN}, {@link #DARK_GRAY}, {@link #GRAY},
  *  {@link #GREEN}, {@link #LIGHT_GRAY}, {@link #MAGENTA}, {@link #ORANGE},
@@ -223,7 +223,7 @@ import javax.swing.KeyStroke;
  *  pen color to magenta.
  *  <p>
  *  <b>Window title.</b>
- *  By default, the standard drawing window title is "Standard Draw".
+ *  By default, the stanard drawing window title is "Standard Draw".
  *  You can change the title with the following method:
  *  <ul>
  *  <li> {@link #setTitle(String title)}
@@ -242,7 +242,7 @@ import javax.swing.KeyStroke;
  *  This sets the canvas size to be <em>width</em>-by-<em>height</em> pixels.
  *  It also erases the current drawing and resets the coordinate system,
  *  pen radius, pen color, and font back to their default values.
- *  Ordinarily, this method is called only once, at the very beginning of a program.
+ *  Ordinarly, this method is called only once, at the very beginning of a program.
  *  For example, {@code StdDraw.setCanvasSize(800, 800)}
  *  sets the canvas size to be 800-by-800 pixels.
  *  <p>
@@ -319,7 +319,7 @@ import javax.swing.KeyStroke;
  *  <p>
  *  <b>Saving to a file.</b>
  *  You can save your image to a file using the <em>File → Save</em> menu option.
- *  You can also save a file programmatically using the following method:
+ *  You can also save a file programatically using the following method:
  *  <ul>
  *  <li> {@link #save(String filename)}
  *  </ul>
@@ -616,8 +616,8 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     private static double xmin, ymin, xmax, ymax;
 
     // for synchronization
-    private static final Object MOUSE_LOCK = new Object();
-    private static final Object KEY_LOCK = new Object();
+    private static Object mouseLock = new Object();
+    private static Object keyLock = new Object();
 
     // default font
     private static final Font DEFAULT_FONT = new Font("SansSerif", Font.PLAIN, 16);
@@ -659,7 +659,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      * Sets the canvas (drawing area) to be 512-by-512 pixels.
      * This also erases the current drawing and resets the coordinate system,
      * pen radius, pen color, and font back to their default values.
-     * Ordinarily, this method is called once, at the very beginning
+     * Ordinarly, this method is called once, at the very beginning
      * of a program.
      */
     public static void setCanvasSize() {
@@ -670,7 +670,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      * Sets the canvas (drawing area) to be <em>width</em>-by-<em>height</em> pixels.
      * This also erases the current drawing and resets the coordinate system,
      * pen radius, pen color, and font back to their default values.
-     * Ordinarily, this method is called once, at the very beginning
+     * Ordinarly, this method is called once, at the very beginning
      * of a program.
      *
      * @param  canvasWidth the width as a number of pixels
@@ -791,21 +791,21 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
     ***************************************************************************/
 
     /**
-     * Sets the <em>x</em>-scale to the default range (between 0.0 and 1.0).
+     * Sets the <em>x</em>-scale to be the default (between 0.0 and 1.0).
      */
     public static void setXscale() {
         setXscale(DEFAULT_XMIN, DEFAULT_XMAX);
     }
 
     /**
-     * Sets the <em>y</em>-scale to the default range (between 0.0 and 1.0).
+     * Sets the <em>y</em>-scale to be the default (between 0.0 and 1.0).
      */
     public static void setYscale() {
         setYscale(DEFAULT_YMIN, DEFAULT_YMAX);
     }
 
     /**
-     * Sets both the <em>x</em>-scale and <em>y</em>-scale to the default range
+     * Sets the <em>x</em>-scale and <em>y</em>-scale to be the default
      * (between 0.0 and 1.0).
      */
     public static void setScale() {
@@ -826,7 +826,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         validate(max, "max");
         double size = max - min;
         if (size == 0.0) throw new IllegalArgumentException("the min and max are the same");
-        synchronized (MOUSE_LOCK) {
+        synchronized (mouseLock) {
             xmin = min - BORDER * size;
             xmax = max + BORDER * size;
         }
@@ -845,7 +845,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         validate(max, "max");
         double size = max - min;
         if (size == 0.0) throw new IllegalArgumentException("the min and max are the same");
-        synchronized (MOUSE_LOCK) {
+        synchronized (mouseLock) {
             ymin = min - BORDER * size;
             ymax = max + BORDER * size;
         }
@@ -864,7 +864,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         validate(max, "max");
         double size = max - min;
         if (size == 0.0) throw new IllegalArgumentException("the min and max are the same");
-        synchronized (MOUSE_LOCK) {
+        synchronized (mouseLock) {
             xmin = min - BORDER * size;
             xmax = max + BORDER * size;
             ymin = min - BORDER * size;
@@ -1408,7 +1408,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         ImageIcon icon = new ImageIcon(filename);
 
         // try to read from URL
-        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
+        if ((icon == null) || (icon.getImageLoadStatus() != MediaTracker.COMPLETE)) {
             try {
                 URL url = new URL(filename);
                 icon = new ImageIcon(url);
@@ -1419,14 +1419,14 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
         }
 
         // in case file is inside a .jar (classpath relative to StdDraw)
-        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
+        if ((icon == null) || (icon.getImageLoadStatus() != MediaTracker.COMPLETE)) {
             URL url = StdDraw.class.getResource(filename);
             if (url != null)
                 icon = new ImageIcon(url);
         }
 
         // in case file is inside a .jar (classpath relative to root of jar)
-        if (icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
+        if ((icon == null) || (icon.getImageLoadStatus() != MediaTracker.COMPLETE)) {
             URL url = StdDraw.class.getResource("/" + filename);
             if (url == null) throw new IllegalArgumentException("image " + filename + " not found");
             icon = new ImageIcon(url);
@@ -1854,7 +1854,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      * @return {@code true} if the mouse is being pressed; {@code false} otherwise
      */
     public static boolean isMousePressed() {
-        synchronized (MOUSE_LOCK) {
+        synchronized (mouseLock) {
             return isMousePressed;
         }
     }
@@ -1867,7 +1867,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      */
     @Deprecated
     public static boolean mousePressed() {
-        synchronized (MOUSE_LOCK) {
+        synchronized (mouseLock) {
             return isMousePressed;
         }
     }
@@ -1878,7 +1878,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      * @return the <em>x</em>-coordinate of the mouse
      */
     public static double mouseX() {
-        synchronized (MOUSE_LOCK) {
+        synchronized (mouseLock) {
             return mouseX;
         }
     }
@@ -1889,7 +1889,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      * @return <em>y</em>-coordinate of the mouse
      */
     public static double mouseY() {
-        synchronized (MOUSE_LOCK) {
+        synchronized (mouseLock) {
             return mouseY;
         }
     }
@@ -1924,7 +1924,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      */
     @Override
     public void mousePressed(MouseEvent e) {
-        synchronized (MOUSE_LOCK) {
+        synchronized (mouseLock) {
             mouseX = StdDraw.userX(e.getX());
             mouseY = StdDraw.userY(e.getY());
             isMousePressed = true;
@@ -1936,7 +1936,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      */
     @Override
     public void mouseReleased(MouseEvent e) {
-        synchronized (MOUSE_LOCK) {
+        synchronized (mouseLock) {
             isMousePressed = false;
         }
     }
@@ -1946,7 +1946,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      */
     @Override
     public void mouseDragged(MouseEvent e)  {
-        synchronized (MOUSE_LOCK) {
+        synchronized (mouseLock) {
             mouseX = StdDraw.userX(e.getX());
             mouseY = StdDraw.userY(e.getY());
         }
@@ -1957,7 +1957,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      */
     @Override
     public void mouseMoved(MouseEvent e) {
-        synchronized (MOUSE_LOCK) {
+        synchronized (mouseLock) {
             mouseX = StdDraw.userX(e.getX());
             mouseY = StdDraw.userY(e.getY());
         }
@@ -1975,7 +1975,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      *         by {@link #nextKeyTyped()}; {@code false} otherwise
      */
     public static boolean hasNextKeyTyped() {
-        synchronized (KEY_LOCK) {
+        synchronized (keyLock) {
             return !keysTyped.isEmpty();
         }
     }
@@ -1993,7 +1993,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      * @throws NoSuchElementException if there is no remaining key
      */
     public static char nextKeyTyped() {
-        synchronized (KEY_LOCK) {
+        synchronized (keyLock) {
             if (keysTyped.isEmpty()) {
                 throw new NoSuchElementException("your program has already processed all keystrokes");
             }
@@ -2015,7 +2015,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      *         {@code false} otherwise
      */
     public static boolean isKeyPressed(int keycode) {
-        synchronized (KEY_LOCK) {
+        synchronized (keyLock) {
             return keysDown.contains(keycode);
         }
     }
@@ -2026,7 +2026,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      */
     @Override
     public void keyTyped(KeyEvent e) {
-        synchronized (KEY_LOCK) {
+        synchronized (keyLock) {
             keysTyped.addFirst(e.getKeyChar());
         }
     }
@@ -2036,7 +2036,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        synchronized (KEY_LOCK) {
+        synchronized (keyLock) {
             keysDown.add(e.getKeyCode());
         }
     }
@@ -2046,7 +2046,7 @@ public final class StdDraw implements ActionListener, MouseListener, MouseMotion
      */
     @Override
     public void keyReleased(KeyEvent e) {
-        synchronized (KEY_LOCK) {
+        synchronized (keyLock) {
             keysDown.remove(e.getKeyCode());
         }
     }

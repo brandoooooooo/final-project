@@ -110,6 +110,34 @@ public class Board {
 
     // test client to make sure each method works
     public static void main(String[] args) {
+        int ROWS = 8;
 
+        String file1 = "White_Pawn.png";
+        String file2 = "Black_Pawn.png";
+        String file3 = "Black_Queen.png";
+
+        Piece testPiece1 = new Piece(file1);
+        Piece testPiece2 = new Piece(file2);
+        Piece testPiece3 = new Piece(file3);
+
+        Piece[] pieces = {testPiece1, testPiece2, testPiece3};
+
+        Board board = new Board(pieces);
+
+        initBoard(ROWS);
+
+        testPiece1.place(3, 3);
+        testPiece2.place(2, 2);
+        testPiece3.place(4, 8);
+
+        // should hide the white pawn
+        // final result should be a black pawn at b2 and a black queen at d8 with the white pawn at c3 hidden
+        square(3, 3);
+
+        StdOut.println("Piece 1 position: " + testPiece1); // should return (3, 3)
+        StdOut.println("Piece 2 position: " + testPiece2); // should return (2, 2)
+        StdOut.println("Piece 3 position: " + testPiece3); // should return (4, 8)
+        StdOut.println(board); // should return 3 pieces, c3, b2, and d8
+        StdOut.println(board.isPiece(4, 8)); // should return true
     }
 }
