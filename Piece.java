@@ -72,8 +72,45 @@ public class Piece {
 
     // a test client to make sure all the functions are working
     public static void main(String[] args) {
+        // change canvas scale to be accurate of a chess board
+        StdDraw.setScale(0, 8);
+
         String file = "White_Pawn.png";
 
-        Piece testPiece = new Piece(file);
+        Piece testPiece1 = new Piece(file);
+        Piece testPiece2 = new Piece(file);
+
+        // translate a1 to (1, 1)
+        int x1 = translate('a');
+        int y1 = translate('1');
+
+        StdOut.println("a1 translated to x-y: (" + x1 + ", " + y1 + ")"); // should return (1, 1)
+
+        // translate g6 to (7, 3)
+        int x2 = translate('g');
+        int y2 = translate('3');
+
+        StdOut.println("g6 translated to x-y: (" + x2 + ", " + y2 + ")"); // should return (7, 3)
+
+        testPiece1.place(x1, y1);
+
+        StdOut.println("Piece initial position (a1): " + testPiece1); // should return (1, 1)
+
+        testPiece1.setImage("White_Queen.png");
+
+        testPiece1.move(2, 2);
+
+        StdOut.println("Piece position after moving to b2: " + testPiece1); // should return (2, 2)
+
+        testPiece1.remove();
+
+        // final result on StdDraw should be a blank board except 2 dark squares where pieces were
+        // with piece at (3, 3) as a queen, and a piece at (1, 1) as a pawn
+        testPiece1.place(3, 3);
+        testPiece2.place(2, 2);
+        testPiece2.move(1, 1);
+
+        StdOut.println("Piece 1 final position: " + testPiece1); // should return (3, 3)
+        StdOut.println("Piece 2 final position: " + testPiece2); // should return (1, 1)
     }
 }
