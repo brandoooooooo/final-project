@@ -16,6 +16,7 @@ public class Board {
         StdDraw.setXscale(0, 12);
 
         // colors for squares of board
+        // colors from https://www.color-hex.com/color-palette/8548
         Color LIGHT = new Color(238, 238, 210);
         Color DARK = new Color(118, 150, 86);
 
@@ -45,6 +46,7 @@ public class Board {
     // places a square at (x, y)
     public static void square(int x, int y) {
         // colors of squares of board
+        // colors from https://www.color-hex.com/color-palette/8548
         Color LIGHT = new Color(238, 238, 210);
         Color DARK = new Color(118, 150, 86);
 

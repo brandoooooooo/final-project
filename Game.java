@@ -26,37 +26,8 @@ public class Game {
         return new int[]{row, y};
     }
 
-    public static void main(String[] args) {
-        // rows/columns of board
-        int ROWS = 8;
-
-        // read command line arguments
-        String piecesFile = args[0];
-        String gameFile = args[1];
-
-        // create piece array and StdIn from piece file
-        In setup = new In(piecesFile);
-        Piece[] pieces = new Piece[setup.readInt()];
-
-        // initialize board on StdDraw with x rows
-        Board.initBoard(ROWS);
-
-        // read pieces from file
-        for (int i = 0; !setup.isEmpty(); i++) {
-            // read initial position for piece
-            char[] square = setup.readString().toCharArray();
-
-            // create piece using image read from file and place in array
-            Piece piece = new Piece(setup.readString());
-            pieces[i] = piece;
-
-            // place piece at initial position on board
-            pieces[i].place(Piece.translate(square[0]), Piece.translate(square[1]));
-        }
-
-        // create new board variable
-        Board board = new Board(pieces);
-
+    // helper method that reads the moves from a file and returns an 2D string array
+    private static String[][] readMoves(String gameFile) {
         In game = new In(gameFile);
 
         // create 2D move array
@@ -76,6 +47,51 @@ public class Game {
             }
         }
 
+        return moves;
+    }
+
+    // helper method that reads the initial setup of pieces and returns a Piece array
+    private static Piece[] readPieces(String pieceFile) {
+        // create piece array and StdIn from piece file
+        In setup = new In(pieceFile);
+        Piece[] pieces = new Piece[setup.readInt()];
+
+        // read pieces from file
+        for (int i = 0; i < pieces.length; i++) {
+            // read initial position for piece
+            char[] square = setup.readString().toCharArray();
+
+            // create piece using image read from file and place in array
+            Piece piece = new Piece(setup.readString());
+            pieces[i] = piece;
+
+            // place piece at initial position on board
+            pieces[i].place(Piece.translate(square[0]), Piece.translate(square[1]));
+        }
+
+        return pieces;
+    }
+
+    public static void main(String[] args) {
+        // rows/columns of board
+        int ROWS = 8;
+
+        // read command line arguments
+        String pieceFile = args[0];
+        String gameFile = args[1];
+
+        // initialize board on StdDraw with x rows
+        Board.initBoard(ROWS);
+
+        // read pieces from file to piece array
+        Piece[] pieces = readPieces(pieceFile);
+
+        // create new board variable
+        Board board = new Board(pieces);
+
+        // read in moves to array
+        String[][] moves = readMoves(gameFile);
+
         // main loop that plays out the game
         for (String[] moveArray : moves) {
             // boolean for side that moves - true for white, false for black
@@ -83,6 +99,8 @@ public class Game {
 
             for (String move : moveArray) {
                 // pause for 1 second every move
+                // source: https://stackoverflow.com/questions/3342651/i-get-exception-when-using-thread-sleepx-or-wait
+                // Thread.sleep would always throw an InterruptedException otherwise
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException exception) {
@@ -185,6 +203,8 @@ public class Game {
                 // if mouse is pressed, pause the playback
                 if (StdDraw.isMousePressed()) {
                     // pause for a second before space can be pressed again to resume
+                    // source: https://stackoverflow.com/questions/3342651/i-get-exception-when-using-thread-sleepx-or-wait
+                    // Thread.sleep would always throw an InterruptedException otherwise
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException exception) {

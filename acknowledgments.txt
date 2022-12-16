@@ -18,7 +18,19 @@ Final Project
  ******************************************************************************/
 
 [write the dates and help received here]
-
+12/11/22 https://www.programiz.com/java-programming/enhanced-for-loop
+    Referenced to remember how to use an enhanced for loop for arrays
+12/12/22 https://commons.wikimedia.org/wiki/Category:PNG_chess_pieces/Standard_transparent
+    I got the chess piece images from this site
+12/12/22 https://docs.oracle.com/javase/7/docs/api/java/lang/String.html
+    Referenced String object methods
+12/14/22 https://stackoverflow.com/questions/3342651/i-get-exception-when-using-thread-sleepx-or-wait
+    Thread.sleep(int x) and other methods always threw a InterruptedException when I tried to call it. This was the
+    only way I found to fix it.
+12/14/22 https://www.color-hex.com/color-palette/8548
+    I got the square colors for the chess board from this site
+12/15/22 https://www.geeksforgeeks.org/switch-statement-in-java/
+    Reference for how to use a switch statement
 
 /******************************************************************************
  *  Write and sign the following student acknowledgment of original work.
@@ -33,7 +45,8 @@ Final Project
  ******************************************************************************/
 
 [write and sign the pledge here]
-
+This programming assignment represents my own work in accordance
+with University regulations.  /s/ Brandon Lee
 
 
 /******************************************************************************
@@ -42,4 +55,4 @@ Final Project
  *  Write "NA" if you did not work with a partner.
  ******************************************************************************/
 
-YES / NO / NA
+YES / NO / (NA)
