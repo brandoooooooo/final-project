@@ -1,3 +1,4 @@
+// piece data type that simulates the positions on a chess piece and visualizes the piece on a board
 public class Piece {
     private int x; // x position of piece
     private int y; // y position of piece
@@ -65,7 +66,7 @@ public class Piece {
         this.image = image;
     }
 
-    // returns the position of the piece
+    // returns the position of the piece (for debugging)
     public String toString() {
         return "(" + x + ", " + y + ")";
     }

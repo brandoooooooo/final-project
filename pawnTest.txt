@@ -1,0 +1,14 @@
+13
+Pf2-f4 Pe4xf3
+Pd5-d6 Pf7-f5
+Pe5xf6 Pf3-f2
+Pf6-f7 Pf2-f1=N
+Pf7-f8=N Pc4-c3
+Pc5-c6 Pc3-c2
+Pc6-c7 Pc2-c1=Q
+Pc7-c8=Q Pd4-d3
+Pd6-d7 Pd3-d2
+Pd7-d8=B Pd2-d1=B
+Pa5-a6 Pa4-a3
+Pa6-a7 Pa3-a2
+Pa7-a8=R Pa2-a1=R

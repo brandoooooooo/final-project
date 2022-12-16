@@ -1,0 +1,13 @@
+12
+a5 White_Pawn.png
+b5 White_Pawn.png
+c5 White_Pawn.png
+d5 White_Pawn.png
+e5 White_Pawn.png
+a4 Black_Pawn.png
+b4 Black_Pawn.png
+c4 Black_Pawn.png
+d4 Black_Pawn.png
+e4 Black_Pawn.png
+f2 White_Pawn.png
+f7 Black_Pawn.png

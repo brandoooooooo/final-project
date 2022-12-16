@@ -1,5 +1,0 @@
-4
-Pe2-e4 Pa7-a5
-Pe4-e5 Pd7-d5
-Pe5xd6 Pa5-a4
-Pb2-b4 Pa4xb3

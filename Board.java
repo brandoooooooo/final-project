@@ -1,5 +1,6 @@
 import java.awt.*;
 
+// board data type that simulates a chess board and creates it on StdDraw
 public class Board {
     private final Piece[] pieces; // stores pieces on the board
 
@@ -86,7 +87,7 @@ public class Board {
         return false;
     }
 
-    // string representation of board, printing number of pieces and position of each piece
+    // string representation of board for debugging, printing number of pieces and position of each piece
     public String toString() {
         StringBuilder output = new StringBuilder();
 

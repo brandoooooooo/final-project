@@ -1,5 +1,6 @@
 import java.awt.*;
 
+// chess game client that replays a game of chess
 public class Game {
     // helper class that calculates the sidebar coordinates to move a captured piece to
     private static int[] capture(Board board, boolean side) {
@@ -72,13 +73,25 @@ public class Game {
         return pieces;
     }
 
+    /*
+     * takes 2 command line arguments, pieceFile and gameFile, as well as an optional command line argument, multiplier,
+     * and plays out a game of chess using the starting position given in pieceFile and using the moves specified
+     * in gameFile, with a playback speed of multiplier. If no multiplier is given, the default delay is 1 second.
+     * Assumes all the squares in pieceFile are valid and all the moves in gameFile are valid, legal chess moves.
+     */
     public static void main(String[] args) {
-        // rows/columns of board
-        int ROWS = 8;
+        int ROWS = 8; // rows/columns of board
+        double delay = 1000.0; // default time delay of each move
 
         // read command line arguments
         String pieceFile = args[0];
         String gameFile = args[1];
+
+        // if a playback speed is given, calculate the delay
+        if (args.length == 3) {
+            double multiplier = Double.parseDouble(args[2]);
+            delay = 1000 / multiplier;
+        }
 
         // initialize board on StdDraw with x rows
         Board.initBoard(ROWS);
@@ -102,7 +115,7 @@ public class Game {
                 // source: https://stackoverflow.com/questions/3342651/i-get-exception-when-using-thread-sleepx-or-wait
                 // Thread.sleep would always throw an InterruptedException otherwise
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep((int) delay);
                 } catch (InterruptedException exception) {
                     exception.printStackTrace();
                 }
@@ -123,6 +136,14 @@ public class Game {
                         StdDraw.setFont(font);
                         StdDraw.setPenColor(StdDraw.BLACK);
                         StdDraw.text(6, 4, "Black wins!");
+
+                        break;
+                    // terminate game and display text if there is a draw
+                    case "1/2-1/2":
+                        font = new Font("COURIER", Font.BOLD, 72);
+                        StdDraw.setFont(font);
+                        StdDraw.setPenColor(StdDraw.BLACK);
+                        StdDraw.text(6, 4, "Draw!");
 
                         break;
                     // king side castle
@@ -160,12 +181,36 @@ public class Game {
                         int x2 = Piece.translate(letters[4]);
                         int y2 = Piece.translate(letters[5]);
 
-                        // pawn promotion by changing piece image from pawn to queen
-                        if (move.contains("=Q") && move.contains("P")) {
-                            if (side)
-                                board.pieceAt(x1, y1).setImage("White_Queen.png");
-                            else
-                                board.pieceAt(x1, y1).setImage("Black_Queen.png");
+                        // pawn promotion by changing piece image from pawn to the promoted piece
+                        if (move.contains("P") && move.contains("=")) {
+                            char promotionPiece = letters[7];
+
+                            // check what piece the pawn is being promoted to and change image to corresponding piece
+                            switch (promotionPiece) {
+                                case 'Q':
+                                    if (side)
+                                        board.pieceAt(x1, y1).setImage("White_Queen.png");
+                                    else
+                                        board.pieceAt(x1, y1).setImage("Black_Queen.png");
+                                    break;
+                                case 'N':
+                                    if (side)
+                                        board.pieceAt(x1, y1).setImage("White_Knight.png");
+                                    else
+                                        board.pieceAt(x1, y1).setImage("Black_Knight.png");
+                                    break;
+                                case 'B':
+                                    if (side)
+                                        board.pieceAt(x1, y1).setImage("White_Bishop.png");
+                                    else
+                                        board.pieceAt(x1, y1).setImage("Black_Bishop.png");
+                                    break;
+                                case 'R':
+                                    if (side)
+                                        board.pieceAt(x1, y1).setImage("White_Rook.png");
+                                    else
+                                        board.pieceAt(x1, y1).setImage("Black_Rook.png");
+                            }
                         }
 
                         // capture piece and display on sidebar if necessary
@@ -185,7 +230,7 @@ public class Game {
                                 int[] coordinates = capture(board, side);
 
                                 // move piece being moved and capture piece being captured
-                                // since it is en passant, the pawn captured is actually one square under the
+                                // since it is en passant, the pawn captured is actually one square above or below
                                 if (side) {
                                     board.pieceAt(x2, y2 - 1).move(coordinates[0], coordinates[1]);
                                     board.pieceAt(x1, y1).move(x2, y2);
